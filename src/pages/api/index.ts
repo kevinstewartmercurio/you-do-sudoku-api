@@ -2,7 +2,7 @@
 body parameters:
     - difficulty, string default easy
     - solution, boolean default true,
-    - string, boolean default false
+    - array, boolean default false
 */
 
 import "dotenv/config"
@@ -125,11 +125,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         // handle logic for returning string or array
-        if (req.body.string && typeof(req.body.string) !== "boolean") {
+        if (req.body.array && typeof(req.body.array) !== "boolean") {
             return res.status(400).json({
                 error: "Invalid 'string' input. Please provide a boolean value or use the default value of false."
             })
-        } else if (req.body.string !== true) {
+        } else if (req.body.array === true) {
             retObj.puzzle = boardStringToGrid(retObj.puzzle)
             if (retObj.hasOwnProperty("solution")) {
                 retObj.solution = boardStringToGrid(retObj.solution)
