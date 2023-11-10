@@ -2,26 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+:root[theme="light"] {
+	--text-gradient: linear-gradient(180deg, #555555, #000000);
+	--text-gradient-alt: linear-gradient(180deg, #a8baf6, #000000);
+	--bg: #ffffff;
+	--primary: #18181b;
+	--secondary: #52525b;
+	--board: #18181b1a;
+
+	--primary-btn-text: #3f3f46;
+	--primary-btn-text-hover: #18181b;
+	--primary-btn-bg: #ffffff;
+	--primary-btn-bg-hover: #18181b06;
+	--primary-btn-border: #18181b1a;
+
+	--secondary-btn-text: #ffffff;
+	--secondary-btn-text-hover: #ffffff;
+	--secondary-btn-bg: #18181b;
+	--secondary-btn-bg-hover: #3f3f46;
+	--secondary-btn-border: #18181b;
+	--secondary-btn-border-hover: #3f3f46;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+:root[theme="dark"] {
+	--text-gradient: linear-gradient(180deg, #ffffff, #adadad);
+	--text-gradient-alt: linear-gradient(180deg, #4f44c9, #adadad);
+	--bg: #18181b;
+	--primary: #ffffff;
+	--secondary: #a1a1aa;
+	--board: #ffffff2a;
+
+	--primary-btn-text: #a1a1aa;
+	--primary-btn-text-hover: #ffffff;
+	--primary-btn-bg: #18181b;
+	--primary-btn-bg-hover: #ffffff0d;
+	--primary-btn-border: #a1a1aa;
+
+	--secondary-btn-text: #467ae2;
+	--secondary-btn-text-hover: #6e9ce7;
+	--secondary-btn-bg: #467ae226;
+	--secondary-btn-bg-hover: #467ae226;
+	--secondary-btn-border: #467ae233;
+	--secondary-btn-border-hover: #467ae2;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	background: var(--bg);
+}
+
+.gradient-text {
+	background: var(--text-gradient);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.gradient-text-alt {
+	background: var(--text-gradient-alt);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
