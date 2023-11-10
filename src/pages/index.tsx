@@ -16,7 +16,7 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="text-secondary text-[max(15px,min(2vw,20px))] text-center">
-						With varying difficulty levels and guaranteed unique solutions, it's Sudoku at your fingertips. Made just for you.
+						With varying difficulty levels and guaranteed unique solutions, it&#39;s Sudoku at your fingertips. Made just for you.
 					</div>
 				</div>
 				<Board />
