@@ -15,6 +15,7 @@ const config: Config = {
             },
 			colors: {
 				"bg": "var(--bg)",
+				"header-bg": "var(--header-bg)",
 				"primary": "var(--primary)",
 				"secondary": "var(--secondary)",
 				"board": "var(--board)",
@@ -24,6 +25,7 @@ const config: Config = {
 				"primary-btn-bg": "var(--primary-btn-bg)",
 				"primary-btn-bg-hover": "var(--primary-btn-bg-hover)",
 				"primary-btn-border": "var(--primary-btn-border)",
+				"primary-btn-border-hover": "var(--primary-btn-border-hover)",
 
 				"secondary-btn-text": "var(--secondary-btn-text)",
 				"secondary-btn-text-hover": "var(--secondary-btn-text-hover)",
