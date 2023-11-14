@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-export default function Board() {
+export default function Boards() {
     const [loading, setLoading] = useState<boolean>(false)
     const [puzzle, setPuzzle] = useState<string>("0".repeat(81))
 	const [solution, setSolution] = useState<string>("0".repeat(81))

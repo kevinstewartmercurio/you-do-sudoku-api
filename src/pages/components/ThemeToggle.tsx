@@ -1,5 +1,5 @@
 import { updateTheme } from "@/redux/features/theme"
-import { useAppSelector, useAppDispatch } from "@/redux/hooks"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { useState, useEffect } from "react"
 
 export default function ThemeToggle() {

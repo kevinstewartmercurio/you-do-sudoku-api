@@ -1,27 +1,25 @@
-import Board from "./components/Board"
+import Boards from "./components/Boards"
+import CTA from "./components/CTA"
+import Features from "./components/Features"
 import Header from "./components/Header"
-import ThemeToggle from "./components/ThemeToggle"
+import Quickstart from "./components/Quickstart"
 
 export default function Home() {
 	return (
 		<>
 			<Header />
-			<div className="py-8 flex flex-col justify-center items-center">
-				{/* <ThemeToggle /> */}
-				<div className="max-w-[768px] lg:max-w-[860px] mb-6 flex flex-col justify-center items-center">
-					<div className="mb-2 xs:mb-4 sm:mb-6 md:mb-7 font-poppins font-bold flex">
-						<div className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl gradient-text">
-							YouDoSudoku
-						</div>
-						<div className="xs:text-lg sm:text-xl md:text-2xl gradient-text-alt">
-							(API)
-						</div>
-					</div>
-					<div className="text-secondary px-4 text-sm sm:text-base lg:text-lg text-center">
-						With varying levels of difficulty and guaranteed unique solutions, it&#39;s Sudoku at your fingertips. Made just for you.
-					</div>
-				</div>
-				<Board />
+			{/* call to action and boards */}
+			<div className="py-8 lg:py-12 flex flex-col justify-center items-center">
+				<CTA />
+				<Boards />
+			</div>
+			{/* features */}
+			<div className="py-8 lg:py-12 flex justify-center items-center">
+				<Features />
+			</div>
+			{/* quickstart */}
+			<div className="py-8 lg:py-12 flex justify-center items-center">
+				<Quickstart />
 			</div>
 			<div className="h-[200vh]"></div>
 		</>

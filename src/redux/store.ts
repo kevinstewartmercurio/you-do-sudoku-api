@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import copiedReducer from "./features/copied"
 import themeReducer from './features/theme'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore } from 'redux-persist'
@@ -10,6 +11,7 @@ const persistConfig = {
 }
 
 const reducers = combineReducers({
+    copied: copiedReducer,
     theme: themeReducer,
 })
 

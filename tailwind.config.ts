@@ -16,6 +16,7 @@ const config: Config = {
 			colors: {
 				"bg": "var(--bg)",
 				"header-bg": "var(--header-bg)",
+				"copied-bg": "var(--copied-bg)",
 				"primary": "var(--primary)",
 				"secondary": "var(--secondary)",
 				"board": "var(--board)",
@@ -33,6 +34,12 @@ const config: Config = {
 				"secondary-btn-bg-hover": "var(--secondary-btn-bg-hover)",
 				"secondary-btn-border": "var(--secondary-btn-border)",
 				"secondary-btn-border-hover": "var(--secondary-btn-border-hover)",
+
+				"feature-card-bg": "var(--feature-card-bg)",
+				"feature-card-icon": "var(--feature-card-icon)",
+
+				"quickstart-route-bg": "var(--quickstart-route-bg)",
+				"quickstart-route-accent": "var(--quickstart-route-accent)",
 			},
 			fontFamily: {
 				inter: ["var(--font-inter)"],

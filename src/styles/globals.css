@@ -6,7 +6,8 @@
 	--text-gradient: linear-gradient(180deg, #555555, #000000);
 	--text-gradient-alt: linear-gradient(180deg, #a8baf6, #000000);
 	--bg: #ffffff;
-	--header-bg: #ffffffe6;
+	--header-bg: #f2f2f2;
+	--copied-bg: #b9d5f9;
 	--primary: #18181b;
 	--secondary: #52525b;
 	--board: #18181b1a;
@@ -24,13 +25,20 @@
 	--secondary-btn-bg-hover: #3f3f46;
 	--secondary-btn-border: #18181b;
 	--secondary-btn-border-hover: #3f3f46;
+
+	--feature-card-bg: #00000012;
+	--feature-card-icon: #467ae2;
+
+	--quickstart-route-bg: #00000012;
+	--quickstart-route-accent: #467ae2;
 }
 
 :root[theme="dark"] {
 	--text-gradient: linear-gradient(180deg, #ffffff, #adadad);
 	--text-gradient-alt: linear-gradient(180deg, #4f44c9, #adadad);
 	--bg: #18181b;
-	--header-bg: #141414e6;
+	--header-bg: #111111;
+	--copied-bg: #657193;
 	--primary: #ffffff;
 	--secondary: #a1a1aa;
 	--board: #ffffff2a;
@@ -48,6 +56,12 @@
 	--secondary-btn-bg-hover: #467ae226;
 	--secondary-btn-border: #467ae233;
 	--secondary-btn-border-hover: #467ae2;
+
+	--feature-card-bg: #ffffff0f;
+	--feature-card-icon: #467ae2;
+
+	--quickstart-route-bg: #ffffff0f;
+	--quickstart-route-accent: #467ae2;
 }
 
 @media (prefers-color-scheme: light) {
@@ -55,7 +69,8 @@
 		--text-gradient: linear-gradient(180deg, #555555, #000000);
 		--text-gradient-alt: linear-gradient(180deg, #a8baf6, #000000);
 		--bg: #ffffff;
-		--header-bg: #ffffffe6;
+		--header-bg: #f2f2f2;
+		--copied-bg: #b9d5f9;
 		--primary: #18181b;
 		--secondary: #52525b;
 		--board: #18181b1a;
@@ -73,6 +88,12 @@
 		--secondary-btn-bg-hover: #3f3f46;
 		--secondary-btn-border: #18181b;
 		--secondary-btn-border-hover: #3f3f46;
+
+		--feature-card-bg: #00000012;
+		--feature-card-icon: #467ae2;
+
+		--quickstart-route-bg: #00000012;
+		--quickstart-route-accent: #467ae2;
 	}
 
 	body {
@@ -85,7 +106,8 @@
 		--text-gradient: linear-gradient(180deg, #ffffff, #adadad);
 		--text-gradient-alt: linear-gradient(180deg, #4f44c9, #adadad);
 		--bg: #18181b;
-		--header-bg: #141414e6;
+		--header-bg: #111111;
+		--copied-bg: #657193;
 		--primary: #ffffff;
 		--secondary: #a1a1aa;
 		--board: #ffffff2a;
@@ -103,6 +125,12 @@
 		--secondary-btn-bg-hover: #467ae226;
 		--secondary-btn-border: #467ae233;
 		--secondary-btn-border-hover: #467ae2;
+
+		--feature-card-bg: #ffffff0f;
+		--feature-card-icon: #467ae2;
+
+		--quickstart-route-bg: #ffffff0f;
+		--quickstart-route-accent: #467ae2;
 	}
 
 	body {
