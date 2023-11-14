@@ -48,7 +48,7 @@ export default function Features() {
                         Features
                     </div>
                     <div className="text-secondary lg:ml-8 text-sm sm:text-base lg:text-lg font-inter">
-                        The YouDoSudoku API is designed to be light on resources, ensuring a minimal impact on your application's performance.
+                        The YouDoSudoku API is designed to be light on resources, ensuring a minimal impact on your application&#39;s performance.
                     </div>
                 </div>
                 <div className="px-4 flex flex-col lg:flex-row">

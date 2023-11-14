@@ -10,7 +10,7 @@ export default function ThemeToggle() {
 
     useEffect(() => {
         document.documentElement.setAttribute("theme", theme)
-    }, [])
+    }, [theme])
 
     useEffect(() => {
         setSystemTheme(window.matchMedia('(prefers-color-scheme: light)').matches ? "light" : "dark")

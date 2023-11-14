@@ -20,7 +20,7 @@ export default function Header() {
 
             return () => clearTimeout(timeoutId)
         }
-    }, [copied])
+    }, [copied, dispatch])
 
     useEffect(() => {
         let prevScrollY = window.scrollY
@@ -39,10 +39,6 @@ export default function Header() {
         return () => {
             window.removeEventListener("scroll", updateScrollDirection)
         }
-    }, [scrollDirection])
-
-    useEffect(() => {
-        console.log(scrollDirection)
     }, [scrollDirection])
 
     return (
