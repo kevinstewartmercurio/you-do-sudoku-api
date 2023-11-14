@@ -65,7 +65,7 @@ export default function Header() {
                 </div>
                 {/* copied to clipboard alert */}
                 <div className="sticky z-40">
-                    <div className={`bg-copied-bg w-full px-6 py-1.5 flex justify-center font-inter absolute z-40 ${copied ? "top-0" : "-top-8"} transition-all duration-500`}>
+                    <div className={`bg-copied-bg w-full px-6 py-1.5 flex justify-center font-inter absolute z-40 ${copied ? "top-0" : "-top-8 sm:-top-9 lg:-top-10"} transition-all duration-500`}>
                         <div className="w-max flex items-center">
                             <div className="text-primary flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-check-lg" viewBox="0 0 16 16">
