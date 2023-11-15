@@ -37,13 +37,13 @@ function PythonGETExample() {
                         get&#40;
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         https://you-do-sudoku.com/api/
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-3">
                         &#41;
@@ -112,7 +112,7 @@ function PythonGETExample() {
                         f
                     </span>
                     <span className="text-code-1">
-                        "Error:&nbsp;
+                        &#34;Error:&nbsp;
                     </span>
                     <span className="text-code-3">
                         &#123;
@@ -124,7 +124,7 @@ function PythonGETExample() {
                         &#125;
                     </span>
                     <span className="text-code-1">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-3">
                         &#41;
@@ -139,19 +139,19 @@ function JavaScriptGETExample() {
     return (
         <>
             <code className="w-full flex flex-col items-start">
-                {/* fetch(https://you-do-sudoku.com/api/) */}
+                {/* fetch("https://you-do-sudoku.com/api/"") */}
                 <span>
                     <span className="text-code-3">
                         fetch&#40;
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         https://you-do-sudoku.com/api/
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-3">
                         &#41;
@@ -340,34 +340,34 @@ function PythonPOSTExample() {
                 {/* "difficulty": "easy" */}
                 <span className="indent-8 sm:indent-10 lg:indent-12">
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         difficulty
                     </span>
                     <span className="text-code-0">
-                        ": "
+                        &#34;: &#34;
                     </span>
                     <span className="text-code-1">
                         easy
                     </span>
                     <span className="text-code-0">
-                        ",&nbsp;
+                        &#34;,&nbsp;
                     </span>
                     <span className="text-code-6">
-                        # "easy", "medium", or "hard" (defaults to "easy")
+                        &#35; &#34;easy&#34;, &#34;medium&#34;, or &#34;hard&#34; (defaults to &#34;easy&#34;)
                     </span>
                 </span>
                 {/* "solution": True */}
                 <span className="indent-8 sm:indent-10 lg:indent-12">
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         solution
                     </span>
                     <span className="text-code-0">
-                        ":&nbsp;
+                        &#34;:&nbsp;
                     </span>
                     <span className="text-code-4">
                         True
@@ -376,19 +376,19 @@ function PythonPOSTExample() {
                         ,&nbsp;
                     </span>
                     <span className="text-code-6">
-                        # true or false (defaults to True)
+                        &#35; true or false (defaults to True)
                     </span>
                 </span>
                 {/* "array": False */}
                 <span className="indent-8 sm:indent-10 lg:indent-12">
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         array
                     </span>
                     <span className="text-code-0">
-                        ":&nbsp;
+                        &#34;:&nbsp;
                     </span>
                     <span className="text-code-4">
                         False
@@ -397,7 +397,7 @@ function PythonPOSTExample() {
                         ,&nbsp;
                     </span>
                     <span className="text-code-6">
-                        # true or false (defaults to False)
+                        &#35; true or false (defaults to False)
                     </span>
                 </span>
                 {/* } */}
@@ -415,19 +415,19 @@ function PythonPOSTExample() {
                         = &#123;
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         Content-Type
                     </span>
                     <span className="text-code-0">
-                        ": "
+                        &#34;: &#34;
                     </span>
                     <span className="text-code-1">
                         application/json
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-3">
                         &#125;
@@ -448,13 +448,13 @@ function PythonPOSTExample() {
                         post&#40;
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         https://you-do-sudoku.com/api/
                     </span>
                     <span className="text-code-0">
-                        ", json
+                        &#34;, json
                     </span>
                     <span className="text-code-3">
                         =
@@ -481,19 +481,19 @@ function JavaScriptPOSTExample() {
     return (
         <>
             <code className="w-full flex flex-col items-start">
-                {/* fetch(https://you-do-sudoku.com/api/) */}
+                {/* fetch("https://you-do-sudoku.com/api/") */}
                 <span>
                     <span className="text-code-3">
                         fetch&#40;
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         https://you-do-sudoku.com/api/
                     </span>
                     <span className="text-code-0">
-                        ",&nbsp;
+                        &#34;,&nbsp;
                     </span>
                     <span className="text-code-3">
                         &#123;
@@ -502,13 +502,13 @@ function JavaScriptPOSTExample() {
                 {/* method: "POST", */}
                 <span className="indent-8 sm:indent-10 lg:indent-12">
                     <span className="text-code-0">
-                        method: "
+                        method: &#34;
                     </span>
                     <span className="text-code-1">
                         POST
                     </span>
                     <span className="text-code-0">
-                        ",
+                        &#34;,
                     </span>
                 </span>
                 {/* headers: {"Content-Type": "application/json"}, */}
@@ -520,19 +520,19 @@ function JavaScriptPOSTExample() {
                         &#123;
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-1">
                         Content-Type
                     </span>
                     <span className="text-code-0">
-                        ": "
+                        &#34;: &#34;
                     </span>
                     <span className="text-code-1">
                         application/json
                     </span>
                     <span className="text-code-0">
-                        "
+                        &#34;
                     </span>
                     <span className="text-code-3">
                         &#125;
@@ -553,16 +553,16 @@ function JavaScriptPOSTExample() {
                 {/* difficulty: "easy", */}
                 <span className="indent-16 sm:indent-20 lg:indent-24">
                     <span className="text-code-0">
-                        difficulty: "
+                        difficulty: &#34;
                     </span>
                     <span className="text-code-1">
                         easy
                     </span>
                     <span className="text-code-0">
-                        ",&nbsp;
+                        &#34;,&nbsp;
                     </span>
                     <span className="text-code-6">
-                        // "easy", "medium", or "hard" (defaults to "easy")
+                        &#47;&#47; &#34;easy&#34;, &#34;medium&#34;, or &#34;hard&#34; (defaults to &#34;easy&#34;)
                     </span>
                 </span>
                 {/* solution: true */}
@@ -577,7 +577,7 @@ function JavaScriptPOSTExample() {
                         ,&nbsp;
                     </span>
                     <span className="text-code-6">
-                        // true or false (defaults to true)
+                        &#47;&#47; true or false (defaults to true)
                     </span>
                 </span>
                 {/* array: false */}
@@ -592,7 +592,7 @@ function JavaScriptPOSTExample() {
                         ,&nbsp;
                     </span>
                     <span className="text-code-6">
-                        // true or false (defaults to false)
+                        &#47;&#47; true or false (defaults to false)
                     </span>
                 </span>
                 <span className="indent-8 sm:indent-10 lg:indent-12">
