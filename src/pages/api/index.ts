@@ -127,7 +127,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // handle logic for returning string or array
         if (req.body.array && typeof(req.body.array) !== "boolean") {
             return res.status(400).json({
-                error: "Invalid 'string' input. Please provide a boolean value or use the default value of false."
+                error: "Invalid 'array' input. Please provide a boolean value or use the default value of false."
             })
         } else if (req.body.array === true) {
             retObj.puzzle = boardStringToGrid(retObj.puzzle)

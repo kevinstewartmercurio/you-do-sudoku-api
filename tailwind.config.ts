@@ -40,6 +40,15 @@ const config: Config = {
 
 				"quickstart-route-bg": "var(--quickstart-route-bg)",
 				"quickstart-route-accent": "var(--quickstart-route-accent)",
+
+				"examples-accent": "var(--examples-accent)",
+				"code-0": "var(--code-0)",
+				"code-1": "var(--code-1)",
+				"code-2": "var(--code-2)",
+				"code-3": "var(--code-3)",
+				"code-4": "var(--code-4)",
+				"code-5": "var(--code-5)",
+				"code-6": "var(--code-6)"
 			},
 			fontFamily: {
 				inter: ["var(--font-inter)"],

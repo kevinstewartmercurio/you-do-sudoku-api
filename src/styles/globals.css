@@ -31,6 +31,14 @@
 
 	--quickstart-route-bg: #00000012;
 	--quickstart-route-accent: #467ae2;
+
+	--examples-accent: #467ae2;
+	--code-0: #2e3440;
+	--code-1: #82a461;
+	--code-3: #6a66e3;
+	--code-4: #738ac1;
+	--code-5: #886293;
+	--code-6: #a9adb5;
 }
 
 :root[theme="dark"] {
@@ -62,6 +70,14 @@
 
 	--quickstart-route-bg: #ffffff0f;
 	--quickstart-route-accent: #467ae2;
+
+	--examples-accent: #467ae2;
+	--code-0: #eceff4;
+	--code-1: #a3be8c;
+	--code-3: #81a1c1;
+	--code-4: #5e81ac;
+	--code-5: #b48ead;
+	--code-6: #4c566a;
 }
 
 @media (prefers-color-scheme: light) {
@@ -94,6 +110,14 @@
 
 		--quickstart-route-bg: #00000012;
 		--quickstart-route-accent: #467ae2;
+
+		--examples-accent: #467ae2;
+		--code-0: #2e3440;
+		--code-1: #82a461;
+		--code-3: #6a66e3;
+		--code-4: #738ac1;
+		--code-5: #886293;
+		--code-6: #a9adb5;
 	}
 
 	body {
@@ -131,6 +155,14 @@
 
 		--quickstart-route-bg: #ffffff0f;
 		--quickstart-route-accent: #467ae2;
+
+		--examples-accent: #467ae2;
+		--code-0: #eceff4;
+		--code-1: #a3be8c;
+		--code-3: #81a1c1;
+		--code-4: #5e81ac;
+		--code-5: #b48ead;
+		--code-6: #4c566a;
 	}
 
 	body {
