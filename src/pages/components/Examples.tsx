@@ -618,13 +618,13 @@ function OutputExample(props: {difficulty: string, puzzle: string, solution: str
                     &#123;
                 </span>
                 <span className="indent-8 sm:indent-10 lg:indent-12">
-                    difficulty: "{props.difficulty}",
+                    difficulty: &#34;{props.difficulty}&#34;,
                 </span>
                 <span className="indent-8 sm:indent-10 lg:indent-12">
-                    puzzle: "{props.puzzle}",
+                    puzzle: &#34;{props.puzzle}&#34;,
                 </span>
                 <span className="indent-8 sm:indent-10 lg:indent-12">
-                    solution: "{props.solution}",
+                    solution: &#34;{props.solution}&#34;,
                 </span>
                 <span>
                     &#125;
