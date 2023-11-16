@@ -1,38 +1,4 @@
-import { useState, useEffect } from "react"
-
-export default function Boards() {
-    const [loading, setLoading] = useState<boolean>(false)
-    const [puzzle, setPuzzle] = useState<string>("0".repeat(81))
-	const [solution, setSolution] = useState<string>("0".repeat(81))
-
-    useEffect(() => {
-		generateBoard()
-	}, [])
-
-	const generateBoard = async () => {
-        if (!loading) {
-            try {
-                setLoading(true)
-
-                const res = await fetch("/api", {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({
-                        difficulty: ["easy", "medium", "hard"][Math.floor(Math.random() * 3)]
-                    })
-                })
-                const data = await res.json()
-
-                setPuzzle(data.puzzle)
-                setSolution(data.solution)
-                setLoading(false)
-            } catch (error) {
-                console.error(error)
-                setLoading(false)
-            }
-        }
-	}
-
+export default function Boards(props: {puzzle: string, solution:string, generateBoard: () => Promise<void>}) {
     const getCellBorderStyling = (idx: number): string => {
         let retStr = ""
 
@@ -69,7 +35,7 @@ export default function Boards() {
                             Puzzle
                         </div>
                         <div className="text-secondary grid grid-cols-9 text-sm md:text-base">
-                            {puzzle.split("").map((c: string, idx: number) => (
+                            {props.puzzle.split("").map((c: string, idx: number) => (
                                 <div key={idx} className={`border-board border-[.5px] ${getCellBorderStyling(idx)} w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center`}>
                                     {c === "0" ? "" : c}
                                 </div>
@@ -81,7 +47,7 @@ export default function Boards() {
                             Solution
                         </div>
                         <div className="text-secondary grid grid-cols-9 text-sm md:text-base">
-                            {solution.split("").map((c: string, idx: number) => (
+                            {props.solution.split("").map((c: string, idx: number) => (
                                 <div key={idx} className={`border-board border-[.5px] ${getCellBorderStyling(idx)} w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center`}>
                                     {c === "0" ? "" : c}
                                 </div>
@@ -89,10 +55,10 @@ export default function Boards() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-1.5 xs:mt-3 flex">
-                    <button className="text-secondary-btn-text bg-secondary-btn-bg border-secondary-btn-border border-[1px] rounded-lg px-3 py-1 font-inter hover:bg-secondary-btn-bg-hover hover:border-secondary-btn-border-hover duration-300" onClick={(e) => {
+                <div className="mt-1.5 xs:mt-3 sm:mt-3.5 flex">
+                    <button className="text-secondary-btn-text bg-secondary-btn-bg border-secondary-btn-border border-[1px] rounded-lg px-3 py-1 font-inter text-sm sm:text-base lg:text-lg hover:bg-secondary-btn-bg-hover hover:border-secondary-btn-border-hover duration-300" onClick={(e) => {
                             e.preventDefault()
-                            generateBoard()
+                            props.generateBoard()
                         }}>
                         Generate Board
                     </button>

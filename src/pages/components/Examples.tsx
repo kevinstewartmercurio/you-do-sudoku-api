@@ -3,11 +3,11 @@ import { updateCopied } from "@/redux/features/copied"
 import { useAppDispatch } from "@/redux/hooks"
 import { useState } from "react"
 
-const pythonGETText = 'import requests\n\nresponse = requests.get("https://you-do-sudoku.com/api/")\n\nif response.status_code == 200:\n    data = response.json()\n    print(data)\nelse:\n    print(f"Error: {response.status_code}")'
-const javascriptGETText = 'fetch("https://you-do-sudoku.com/api/")\n    .then(response => {\n        if (!response.ok) {\n            throw new Error(`Error: ${response.status}`)\n        }\n        return response.json()\n    })\n    .then(data => {\n        console.log(data)\n    })\n    .catch(error => {\n        console.error(error)\n    })'
+const pythonGETText = 'import requests\n\nresponse = requests.get("https://youdosudoku.com/api/")\n\nif response.status_code == 200:\n    data = response.json()\n    print(data)\nelse:\n    print(f"Error: {response.status_code}")'
+const javascriptGETText = 'fetch("https://youdosudoku.com/api/")\n    .then(response => {\n        if (!response.ok) {\n            throw new Error(`Error: ${response.status}`)\n        }\n        return response.json()\n    })\n    .then(data => {\n        console.log(data)\n    })\n    .catch(error => {\n        console.error(error)\n    })'
 
-const pythonPOSTText = 'body = {\n    "difficulty": "easy", # "easy", "medium", or "hard" (defaults to "easy")\n    "solution": True, # True or False (defaults to True)\n    "array": False # True or False (defaults to False)\n}\nheaders =  {"Content-Type":"application/json"}\n\nresponse = requests.post("https://you-do-sudoku-api.com/api/", json=body, headers=headers)'
-const javascriptPOSTText = 'fetch("https://you-do-sudoku.com/api/", {\n    method: "POST",\n    headers: {"Content-Type": "application/json"},\n    body: JSON.stringify({\n        difficulty: "easy", // "easy", "medium", or "hard" (defaults to "easy")\n        solution: true, // true or false (defaults to true)\n        array: false // true or false (defaults to false)\n    })\n})'
+const pythonPOSTText = 'body = {\n    "difficulty": "easy", # "easy", "medium", or "hard" (defaults to "easy")\n    "solution": True, # True or False (defaults to True)\n    "array": False # True or False (defaults to False)\n}\nheaders =  {"Content-Type":"application/json"}\n\nresponse = requests.post("https://youdosudoku-api.com/api/", json=body, headers=headers)'
+const javascriptPOSTText = 'fetch("https://youdosudoku.com/api/", {\n    method: "POST",\n    headers: {"Content-Type": "application/json"},\n    body: JSON.stringify({\n        difficulty: "easy", // "easy", "medium", or "hard" (defaults to "easy")\n        solution: true, // true or false (defaults to true)\n        array: false // true or false (defaults to false)\n    })\n})'
 
 function PythonGETExample() {
     return (
@@ -22,7 +22,7 @@ function PythonGETExample() {
                         requests
                     </span>
                 </span>
-                {/* response = requests.get("https://you-do-sudoku.com/api/") */}
+                {/* response = requests.get("https://youdosudoku.com/api/") */}
                 <span className="mb-3.5 sm:mb-4 lg:mb-[18px]">
                     <span className="text-code-0">
                         response&nbsp;
@@ -40,7 +40,7 @@ function PythonGETExample() {
                         &#34;
                     </span>
                     <span className="text-code-1">
-                        https://you-do-sudoku.com/api/
+                        https://youdosudoku.com/api/
                     </span>
                     <span className="text-code-0">
                         &#34;
@@ -139,7 +139,7 @@ function JavaScriptGETExample() {
     return (
         <>
             <code className="w-full flex flex-col items-start">
-                {/* fetch("https://you-do-sudoku.com/api/"") */}
+                {/* fetch("https://youdosudoku.com/api/"") */}
                 <span>
                     <span className="text-code-3">
                         fetch&#40;
@@ -148,7 +148,7 @@ function JavaScriptGETExample() {
                         &#34;
                     </span>
                     <span className="text-code-1">
-                        https://you-do-sudoku.com/api/
+                        https://youdosudoku.com/api/
                     </span>
                     <span className="text-code-0">
                         &#34;
@@ -433,7 +433,7 @@ function PythonPOSTExample() {
                         &#125;
                     </span>
                 </span>
-                {/* response = requests.post("https://you-do-sudoku.com/api/", json=body, headers=headers) */}
+                {/* response = requests.post("https://youdosudoku.com/api/", json=body, headers=headers) */}
                 <span>
                     <span className="text-code-0">
                         response&nbsp;
@@ -451,7 +451,7 @@ function PythonPOSTExample() {
                         &#34;
                     </span>
                     <span className="text-code-1">
-                        https://you-do-sudoku.com/api/
+                        https://youdosudoku.com/api/
                     </span>
                     <span className="text-code-0">
                         &#34;, json
@@ -481,7 +481,7 @@ function JavaScriptPOSTExample() {
     return (
         <>
             <code className="w-full flex flex-col items-start">
-                {/* fetch("https://you-do-sudoku.com/api/") */}
+                {/* fetch("https://youdosudoku.com/api/") */}
                 <span>
                     <span className="text-code-3">
                         fetch&#40;
@@ -490,7 +490,7 @@ function JavaScriptPOSTExample() {
                         &#34;
                     </span>
                     <span className="text-code-1">
-                        https://you-do-sudoku.com/api/
+                        https://youdosudoku.com/api/
                     </span>
                     <span className="text-code-0">
                         &#34;,&nbsp;
@@ -610,7 +610,31 @@ function JavaScriptPOSTExample() {
     )
 }
 
-export default function Examples() {
+function OutputExample(props: {difficulty: string, puzzle: string, solution: string}) {
+    return (
+        <>
+            <code className="text-code-0 w-full flex flex-col items-start">
+                <span>
+                    &#123;
+                </span>
+                <span className="indent-8 sm:indent-10 lg:indent-12">
+                    difficulty: "{props.difficulty}",
+                </span>
+                <span className="indent-8 sm:indent-10 lg:indent-12">
+                    puzzle: "{props.puzzle}",
+                </span>
+                <span className="indent-8 sm:indent-10 lg:indent-12">
+                    solution: "{props.solution}",
+                </span>
+                <span>
+                    &#125;
+                </span>
+            </code>
+        </>
+    )
+}
+
+export default function Examples(props: {difficulty: string, puzzle: string, solution: string}) {
     const dispatch = useAppDispatch()
 
     const [language, setLanguage] = useState<string>("python")
@@ -637,7 +661,7 @@ export default function Examples() {
                             JavaScript
                         </button>
                     </div>
-                    {/* get https://you-do-sudoku.com/api/ */}
+                    {/* get https://youdosudoku.com/api/ */}
                     <div className="bg-quickstart-route-bg border-board border-[1px] w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 flex items-center">
                         <div className="text-examples-accent font-mono text-xs leading-6">
                             GET
@@ -646,7 +670,7 @@ export default function Examples() {
                             &#183;
                         </div>
                         <div className="text-secondary text-xs">
-                            https://you-do-sudoku.com/api/
+                            https://youdosudoku.com/api/
                         </div>
                     </div>
                     {/* code snippet */}
@@ -670,7 +694,7 @@ export default function Examples() {
                             JavaScript
                         </button>
                     </div>
-                    {/* post https://you-do-sudoku.com/api/ */}
+                    {/* post https://youdosudoku.com/api/ */}
                     <div className="bg-quickstart-route-bg border-board border-[1px] w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 flex items-center">
                         <div className="text-examples-accent font-mono text-xs leading-6">
                             POST
@@ -679,19 +703,42 @@ export default function Examples() {
                             &#183;
                         </div>
                         <div className="text-secondary text-xs">
-                            https://you-do-sudoku.com/api/
+                            https://youdosudoku.com/api/
                         </div>
                     </div>
                     {/* code snippet */}
                     <CopyToClipboard text={language === "python" ? pythonPOSTText : javascriptPOSTText}>
                         <button className="w-full flex justify-center" onClick={() => dispatch(updateCopied(true))}>
-                            <div className="text-secondary bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap">
+                            <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap">
                                 {/* <PythonGETExample /> */}
                                 {language === "python" ? <PythonPOSTExample /> : <JavaScriptPOSTExample />}
                             </div>
                         </button>
                     </CopyToClipboard>
                 </div>
+                {/* output */}
+                {props.difficulty && props.puzzle && props.solution && 
+                    <div className="w-full my-4 flex flex-col items-center">
+                        {/* output https://youdosudoku.com/api/ */}
+                        <div className="bg-quickstart-route-bg border-board border-[1px] rounded-t-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 flex items-center">
+                            <div className="text-examples-accent font-mono text-xs leading-6">
+                                OUTPUT
+                            </div>
+                            <div className="text-secondary mx-3">
+                                &#183;
+                            </div>
+                            <div className="text-secondary text-xs">
+                                https://youdosudoku.com/api/
+                            </div>
+                        </div>
+                        {/* json snippet */}
+                        <div className="w-full flex justify-center">
+                            <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap">
+                                <OutputExample difficulty={props.difficulty} puzzle={props.puzzle} solution={props.solution} />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </>
     )
