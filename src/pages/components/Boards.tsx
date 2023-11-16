@@ -35,7 +35,7 @@ export default function Boards(props: {puzzle: string, solution:string, generate
                             Puzzle
                         </div>
                         <div className="text-secondary grid grid-cols-9 text-sm md:text-base">
-                            {props.puzzle.split("").map((c: string, idx: number) => (
+                            {(props.puzzle || "0".repeat(81)).split("").map((c: string, idx: number) => (
                                 <div key={idx} className={`border-board border-[.5px] ${getCellBorderStyling(idx)} w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center`}>
                                     {c === "0" ? "" : c}
                                 </div>
@@ -47,7 +47,7 @@ export default function Boards(props: {puzzle: string, solution:string, generate
                             Solution
                         </div>
                         <div className="text-secondary grid grid-cols-9 text-sm md:text-base">
-                            {props.solution.split("").map((c: string, idx: number) => (
+                            {(props.solution || "0".repeat(81)).split("").map((c: string, idx: number) => (
                                 <div key={idx} className={`border-board border-[.5px] ${getCellBorderStyling(idx)} w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center`}>
                                     {c === "0" ? "" : c}
                                 </div>
