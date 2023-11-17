@@ -59,7 +59,7 @@ export default function Header() {
                 <div className="bg-header-bg w-full py-2.5 flex justify-center items-center relative z-50">
                     <div className="w-full max-w-6xl flex items-center">
                         <div className="w-1/4 lg:w-0"></div>
-                        <Link href="/" className="w-full sm:w-1/2 lg:w-1/5 font-poppins font-bold flex justify-center items-center">
+                        <Link href="/" className="w-full sm:w-1/2 lg:w-1/5 font-poppins font-bold flex justify-center">
                             <div className="text-3xl xs:text-4xl sm:text-5xl gradient-text">
                                 YDS
                             </div>
