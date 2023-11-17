@@ -1,9 +1,10 @@
-import dynamic from "next/dynamic"
 import Link from "next/link"
+import { scroller } from "react-scroll"
 import { updateCopied } from "@/redux/features/copied"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { useState, useEffect } from "react"
 
+import dynamic from "next/dynamic"
 const ThemeToggle = dynamic(() => import("./ThemeToggle"), {ssr: false})
 
 export default function Header() {
@@ -42,21 +43,41 @@ export default function Header() {
         }
     }, [scrollDirection])
 
+    const handleClickToScroll = (id: string) => {
+        scroller.scrollTo(id, {
+            duration: 800,
+            delay: 0,
+            smooth: true,
+            offset: -100
+        })
+    }
+
     return (
         <>
             <div className={`border-board border-b-[1px] flex flex-col sticky z-50 ${scrollDirection === "down" ? "-top-[57px] xs:-top-[61px] sm:-top-[69px]" : "top-0"} transition-all duration-500`}>
                 {/* header */}
                 <div className="bg-header-bg w-full py-2.5 flex items-center relative z-50">
-                    <div className="w-1/4"></div>
-                    <Link href="/" className="w-full sm:w-1/2 font-poppins font-bold flex justify-center">
+                    <div className="w-1/4 lg:w-0"></div>
+                    <Link href="/" className="w-full sm:w-1/2 font-poppins font-bold flex justify-center items-center">
                         <div className="text-3xl xs:text-4xl sm:text-5xl gradient-text">
                             YDS
                         </div>
                         <div className="text-sm xs:text-base sm:text-lg gradient-text-alt">
                             (API)
                         </div>
+                        <div className="text-primary ml-6 font-inter text-lg">
+                            <button className="mx-3" onClick={() => handleClickToScroll("features")}>
+                                Features
+                            </button>
+                            <button className="mx-3" onClick={() => handleClickToScroll("quickstart")}>
+                                Quickstart
+                            </button>
+                            <button className="mx-3" onClick={() => handleClickToScroll("examples")}>
+                                Examples
+                            </button>
+                        </div>
                     </Link>
-                    <div className="w-1/4 flex justify-center items-center">
+                    <div className="w-1/4 lg:w-1/2 flex justify-center items-center">
                         <div className="lg:mx-3">
                             <ThemeToggle />
                         </div>
