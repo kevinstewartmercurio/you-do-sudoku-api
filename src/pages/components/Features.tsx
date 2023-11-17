@@ -42,7 +42,7 @@ const cards: Card[] = [
 export default function Features() {
     return (
         <>
-            <div className="flex flex-col items-center">
+            <div id="features" className="flex flex-col items-center">
                 <div className="md:max-w-3xl lg:max-w-6xl mb-3 sm:mb-5 px-6 flex flex-col lg:flex-row justify-center">
                     <div className="text-primary mb-1.5 sm:mb-2.5 text-4xl sm:text-5xl lg:text-6xl font-poppins font-semibold">
                         Features

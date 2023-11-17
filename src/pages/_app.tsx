@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import localFont from "next/font/local"
 import { Providers } from '@/redux/Providers'
 
@@ -39,6 +40,12 @@ const poppins = localFont({
 export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<>
+			<Head>
+				<title>
+					YouDoSudoku - API
+				</title>
+				<link rel="icon" href="/icon.png" />
+			</Head>
 			<main className={`${inter.variable} ${poppins.variable}`}>
 				<Providers>
 					<Component {...pageProps} />
