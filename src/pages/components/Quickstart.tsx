@@ -22,7 +22,7 @@ export default function Quickstart() {
                         <div className="bg-quickstart-route-accent rounded-l-2xl w-1.5 h-11 lg:h-12"></div>
                         <div className="text-secondary bg-quickstart-route-bg rounded-r-2xl w-64 xs:w-5/6 max-w-lg lg:max-w-xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex items-center overflow-auto whitespace-nowrap">
                             <code>
-                                https://you-do-sudoku-api.com/api
+                                https://youdosudoku.com/api
                             </code>
                         </div>
                     </button>
