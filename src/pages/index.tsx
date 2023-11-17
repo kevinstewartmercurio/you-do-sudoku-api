@@ -4,6 +4,7 @@ import Boards from "./components/Boards"
 import CTA from "./components/CTA"
 import Examples from "./components/Examples"
 import Features from "./components/Features"
+import Footer from "./components/Footer"
 import Header from "./components/Header"
 import Quickstart from "./components/Quickstart"
 
@@ -46,23 +47,23 @@ export default function Home() {
 		<>
 			<Header />
 			{/* call to action and boards */}
-			<div className="py-8 lg:py-12 flex flex-col justify-center items-center">
+			<div className="py-8 lg:py-12 xl:py-14 flex flex-col justify-center items-center">
 				<CTA />
 				<Boards puzzle={puzzle} solution={solution} generateBoard={generateBoard} />
 			</div>
 			{/* features */}
-			<div className="py-8 lg:py-12 flex justify-center items-center">
+			<div className="py-8 lg:py-12 xl:py-14 flex justify-center items-center">
 				<Features />
 			</div>
 			{/* quickstart */}
-			<div className="py-8 lg:py-12 flex justify-center items-center">
+			<div className="py-8 lg:py-12 xl:py-14 flex justify-center items-center">
 				<Quickstart />
 			</div>
 			{/* examples */}
-			<div className="py-8 lg:py-12 flex justify-center items-center">
+			<div className="pt-8 pb-4 lg:pt-12 lg:pb-6 xl:pt-14 xl:pb-7 flex justify-center items-center">
 				<Examples difficulty={difficulty} puzzle={puzzle} solution={solution} />
 			</div>
-			<div className="h-[200vh]"></div>
+			<Footer />
 		</>
 	)
 }

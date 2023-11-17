@@ -48,7 +48,9 @@ const config: Config = {
 				"code-3": "var(--code-3)",
 				"code-4": "var(--code-4)",
 				"code-5": "var(--code-5)",
-				"code-6": "var(--code-6)"
+				"code-6": "var(--code-6)",
+
+				"footer": "var(--footer)"
 			},
 			fontFamily: {
 				inter: ["var(--font-inter)"],

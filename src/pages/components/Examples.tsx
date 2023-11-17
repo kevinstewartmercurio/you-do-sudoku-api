@@ -717,28 +717,28 @@ export default function Examples(props: {difficulty: string, puzzle: string, sol
                     </CopyToClipboard>
                 </div>
                 {/* output */}
-                {props.difficulty && props.puzzle && props.solution && 
-                    <div className="w-full my-4 flex flex-col items-center">
-                        {/* output https://youdosudoku.com/api/ */}
-                        <div className="bg-quickstart-route-bg border-board border-[1px] rounded-t-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 flex items-center">
-                            <div className="text-examples-accent font-mono text-xs leading-6">
-                                OUTPUT
-                            </div>
-                            <div className="text-secondary mx-3">
-                                &#183;
-                            </div>
-                            <div className="text-secondary text-xs">
-                                https://youdosudoku.com/api/
-                            </div>
+                <div className="w-full my-4 flex flex-col items-center">
+                    {/* output https://youdosudoku.com/api/ */}
+                    <div className="bg-quickstart-route-bg border-board border-[1px] rounded-t-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 flex items-center">
+                        <div className="text-examples-accent font-mono text-xs leading-6">
+                            OUTPUT
                         </div>
-                        {/* json snippet */}
-                        <div className="w-full flex justify-center">
-                            <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap">
-                                <OutputExample difficulty={props.difficulty} puzzle={props.puzzle} solution={props.solution} />
-                            </div>
+                        <div className="text-secondary mx-3">
+                            &#183;
+                        </div>
+                        <div className="text-secondary text-xs">
+                            https://youdosudoku.com/api/
                         </div>
                     </div>
-                }
+                    {/* json snippet */}
+                    <div className="w-full flex justify-center">
+                        <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl h-[122px] sm:h-[142px] lg:h-[162px] px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap">
+                            {props.difficulty && props.puzzle && props.solution &&
+                                <OutputExample difficulty={props.difficulty} puzzle={props.puzzle} solution={props.solution} />
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     )

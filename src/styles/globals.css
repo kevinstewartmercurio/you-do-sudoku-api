@@ -39,6 +39,8 @@
 	--code-4: #738ac1;
 	--code-5: #886293;
 	--code-6: #a9adb5;
+
+	--footer: #aaaaaa;
 }
 
 :root[theme="dark"] {
@@ -78,6 +80,8 @@
 	--code-4: #5e81ac;
 	--code-5: #b48ead;
 	--code-6: #4c566a;
+
+	--footer-text: #666666;
 }
 
 @media (prefers-color-scheme: light) {
@@ -118,6 +122,8 @@
 		--code-4: #738ac1;
 		--code-5: #886293;
 		--code-6: #a9adb5;
+
+		--footer: #aaaaaa;
 	}
 
 	body {
@@ -163,6 +169,8 @@
 		--code-4: #5e81ac;
 		--code-5: #b48ead;
 		--code-6: #4c566a;
+
+		--footer: #666666;
 	}
 
 	body {
