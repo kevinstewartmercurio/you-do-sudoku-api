@@ -376,7 +376,7 @@ function PythonPOSTExample() {
                         ,&nbsp;
                     </span>
                     <span className="text-code-6">
-                        &#35; true or false (defaults to True)
+                        &#35; True or False (defaults to True)
                     </span>
                 </span>
                 {/* "array": False */}
@@ -397,7 +397,7 @@ function PythonPOSTExample() {
                         ,&nbsp;
                     </span>
                     <span className="text-code-6">
-                        &#35; true or false (defaults to False)
+                        &#35; True or False (defaults to False)
                     </span>
                 </span>
                 {/* } */}
