@@ -1,40 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ✏️ [YouDoSudoku API](https://www.youdosudoku.com)
 
-## Getting Started
+A REST API that allows you to generate Sudoku puzzles of varying difficulties.
 
-First, run the development server:
+## ⚡️ Technologies
+[![image](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![image](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![image](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![image](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 API
+As of right now there is one API route [`https://www.youdosudoku.com/api/`](https://www.youdosudoku.com/api/) and fetching from this URL will return one of over 200 billion pre-generated puzzles stored in the YouDoSudoku database.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+By default the JSON response will contain a string representation of an easy puzzle and a string representation of the corresponding solution. However, you can alter your response format by sending a POST request. You can specify what puzzle difficulty you want, whether or not you want a solution, and whether you want a string representation or an array representation of your puzzle.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 💭 Process
+I started by trying to find a fast way to generate Sudoku puzzles. After researching Sudoku generation, I learned that constructing easy and medium puzzles was a relatively fast procedure, but making hard puzzles could take anywhere from a fraction of a second to twenty seconds.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+So I decided to pre-generate "banks" of puzzles. There are three of these banks in the database, one for each difficulty, and each bank contains 50,000 unique puzzles alongside their corresponding solutions. When a developer sends a request for a puzzle, they receive a randomly selected puzzle from the puzzle banks.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+But that’s not all! To decrease the likelihood of ever seeing the exact same puzzle twice, each puzzle is represented in the database by its corresponding increasing order permutation (i.e. the first number seen in the puzzle is 1, the second number seen is 2, etc.). Before sharing the puzzle with the developer, all values are changed according to a randomly generated permutation (i.e. all 1s become 9s, all 2s become 4s, etc.), and the puzzle is rotated 90º between zero and three times. The process of switching values according to a randomly generated permutation and rotation by 90º some number between 0 and 3 times yields 1,451,520 puzzles per puzzle in the bank. Therefore, the 150,000 unique puzzles in the database effectively become over 200 billion puzzles.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+*(Note: It has been shown that if two puzzles A and B are not isometric then no amount of permuting and/or rotating will make A and B isometric.)*
 
-## Learn More
+## 🌪️ Challenges
+Filling the puzzle banks with pre-generated puzzles was the hardest step, specifically because finding a satisfactory Sudoku generation algorithm that guaranteed unique solutions was important. I would like to thank [mfgravesjr](https://github.com/mfgravesjr/finished-projects/tree/master/SudokuGridGenerator) for sharing an algorithm that creates valid Sudoku solutions. Using that algorithm as a starting point, I was able to generate puzzles and then iteratively remove values, while preserving the solution's uniqueness, based on the desired difficulty.
 
-To learn more about Next.js, take a look at the following resources:
+## 🤔 Improvements
+Adding more API routes to go beyond puzzle generation is something I would like to do in the future. I haven’t looked into solving algorithms but if there was a sufficiently fast algorithm I would love to offer puzzle solving as well.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📷 Images
+![YDS API Light Theme](/public/yds-light.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![YDS API Dark Theme](/public/yds-dark.png)
