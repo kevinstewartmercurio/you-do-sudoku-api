@@ -7,6 +7,7 @@ A REST API that allows you to generate Sudoku puzzles of varying difficulties.
 [![image](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![image](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![image](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![image](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
 ## 🚀 API
 As of right now there is one API route [`https://www.youdosudoku.com/api/`](https://www.youdosudoku.com/api/) and fetching from this URL will return one of over 200 billion pre-generated puzzles stored in the YouDoSudoku database.
