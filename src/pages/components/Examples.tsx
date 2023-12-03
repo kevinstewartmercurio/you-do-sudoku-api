@@ -676,7 +676,7 @@ export default function Examples(props: {difficulty: string, puzzle: string, sol
                     {/* code snippet */}
                     <CopyToClipboard text={language === "python" ? pythonGETText : javascriptGETText}>
                         <button className="w-full flex justify-center" onClick={() => dispatch(updateCopied(true))}>
-                            <div className="text-secondary bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap">
+                            <div className="text-secondary bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap code-snippet">
                                 {/* <PythonGETExample /> */}
                                 {language === "python" ? <PythonGETExample /> : <JavaScriptGETExample />}
                             </div>
@@ -709,7 +709,7 @@ export default function Examples(props: {difficulty: string, puzzle: string, sol
                     {/* code snippet */}
                     <CopyToClipboard text={language === "python" ? pythonPOSTText : javascriptPOSTText}>
                         <button className="w-full flex justify-center" onClick={() => dispatch(updateCopied(true))}>
-                            <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap">
+                            <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap code-snippet">
                                 {/* <PythonGETExample /> */}
                                 {language === "python" ? <PythonPOSTExample /> : <JavaScriptPOSTExample />}
                             </div>
@@ -732,7 +732,8 @@ export default function Examples(props: {difficulty: string, puzzle: string, sol
                     </div>
                     {/* json snippet */}
                     <div className="w-full flex justify-center">
-                        <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl h-[122px] sm:h-[142px] lg:h-[162px] px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap">
+                        {/* bg-quickstart-route-bg */}
+                        <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl h-[120px] sm:h-[140px] lg:h-[160px] px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-x-auto overflow-y-clip whitespace-nowrap code-snippet">
                             {props.difficulty && props.puzzle && props.solution &&
                                 <OutputExample difficulty={props.difficulty} puzzle={props.puzzle} solution={props.solution} />
                             }
