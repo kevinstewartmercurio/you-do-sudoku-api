@@ -33,7 +33,7 @@ export default async function handler(
 
     // create document
     const expirationTime = new Date();
-    expirationTime.setDate(expirationTime.getDate() + 1);
+    expirationTime.setMinutes(expirationTime.getMinutes() + 60);
 
     await apiKeysColl.insertOne({
       hashedKey: hashedKey,
