@@ -8,6 +8,7 @@ body parameters:
 import "dotenv/config";
 import { Collection, MongoClient, WithId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { hash } from "@/utils/key";
 
 const client = new MongoClient(process.env.MONGODB_URI as string);
 
@@ -91,6 +92,25 @@ export default async function handler(
   try {
     await client.connect();
     const db = client.db(process.env.MONGODB_DBNAME as string);
+    const apiKeysColl = db.collection(
+      process.env.MONGODB_COLL_API_KEYS as string
+    );
+
+    // check for valid api key
+    if (!req.headers["x-api-key"]) {
+      return res.status(400).json({
+        error: "Missing API key.",
+      });
+    }
+
+    const hashedKey = await hash(req.headers["x-api-key"] as string);
+    const hashedKeyDoc = await apiKeysColl.findOne({ hashedKey: hashedKey });
+
+    if (!hashedKeyDoc) {
+      return res.status(401).json({
+        error: "Invalid API key.",
+      });
+    }
 
     // get collection from database
     let coll: Collection<Document>;

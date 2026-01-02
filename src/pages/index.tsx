@@ -25,7 +25,10 @@ export default function Home() {
 
         const res = await fetch("/api", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": process.env.NEXT_PUBLIC_YOUDOSUDOKU_API_KEY as string,
+          },
           body: JSON.stringify({
             difficulty: ["easy", "medium", "hard"][
               Math.floor(Math.random() * 3)

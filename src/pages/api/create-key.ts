@@ -12,13 +12,15 @@ export default async function handler(
   try {
     await client.connect();
     const db = client.db(process.env.MONGODB_DBNAME as string);
-    const apiKeyColl = db.collection("api_keys");
+    const apiKeysColl = db.collection(
+      process.env.MONGODB_COLL_API_KEYS as string
+    );
 
     let key = generateApiKey();
     let hashedKey = await hash(key);
 
     // check that key is not already in use
-    let existingDoc = await apiKeyColl.findOne({
+    let existingDoc = await apiKeysColl.findOne({
       hashedKey: hashedKey,
     });
 
@@ -26,14 +28,14 @@ export default async function handler(
       key = generateApiKey();
       hashedKey = await hash(key);
 
-      existingDoc = await apiKeyColl.findOne({ hashedKey: hashedKey });
+      existingDoc = await apiKeysColl.findOne({ hashedKey: hashedKey });
     }
 
     // create document
     const expirationTime = new Date();
     expirationTime.setDate(expirationTime.getDate() + 1);
 
-    await apiKeyColl.insertOne({
+    await apiKeysColl.insertOne({
       hashedKey: hashedKey,
       isActive: true,
       createdAt: new Date(),
