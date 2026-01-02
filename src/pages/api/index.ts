@@ -113,6 +113,26 @@ export default async function handler(
       }
     }
 
+    // update metadata for associated key
+    apiKeysColl.updateOne(
+      { hashedKey: hashedKey },
+      {
+        $addToSet: {
+          ipArray: req.headers["x-forwarded-for"] ?? null,
+        },
+        $currentDate: {
+          lastUsedAt: true,
+        },
+        $inc: {
+          requestCount: 1,
+        },
+        $set: {
+          expireAt: null,
+          lastIp: req.headers["x-forwarded-for"] ?? null,
+        },
+      }
+    );
+
     return res.status(200).json(retObj);
   } catch (_) {
     return res.status(500).json({
