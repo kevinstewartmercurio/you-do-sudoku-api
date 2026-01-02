@@ -30,12 +30,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    console.log("here0");
     await client.connect();
     const db = client.db(process.env.MONGODB_DBNAME as string);
     const apiKeysColl = db.collection(
       process.env.MONGODB_COLL_API_KEYS as string
     );
 
+    console.log("here1");
     // check for valid api key
     if (!req.headers["x-api-key"]) {
       return res.status(400).json({
@@ -43,6 +45,7 @@ export default async function handler(
       });
     }
 
+    console.log("here2");
     const hashedKey = await hash(req.headers["x-api-key"] as string);
     const hashedKeyDoc = await apiKeysColl.findOne({ hashedKey: hashedKey });
 
@@ -52,6 +55,7 @@ export default async function handler(
       });
     }
 
+    console.log("here3");
     // get collection from database
     let coll: Collection<Document>;
     if (req.body.difficulty) {
@@ -71,11 +75,13 @@ export default async function handler(
       coll = db.collection(difficultyToDBCollName["easy"]);
     }
 
+    console.log("here4");
     // instatiate return object with difficulty
     let retObj: { [key: string]: any } = {
       difficulty: req.body.difficulty || "easy",
     };
 
+    console.log("here5");
     // get random puzzle and solution from database
     const randn = Math.floor(Math.random() * 50000) + 1;
     const doc = (await coll.findOne({ i: randn })) as WithId<Document>;
@@ -90,6 +96,7 @@ export default async function handler(
     // add puzzle to return object
     retObj.puzzle = puzzle;
 
+    console.log("here6");
     // handle logic for adding/not adding solution
     if (req.body.solution && typeof req.body.solution !== "boolean") {
       return res.status(400).json({
@@ -100,6 +107,7 @@ export default async function handler(
       retObj.solution = solution;
     }
 
+    console.log("here7");
     // handle logic for returning string or array
     if (req.body.array && typeof req.body.array !== "boolean") {
       return res.status(400).json({
