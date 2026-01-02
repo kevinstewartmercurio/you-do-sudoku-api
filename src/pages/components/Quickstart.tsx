@@ -11,8 +11,16 @@ export default function Quickstart() {
   const copied = useAppSelector((state) => state.copied.value);
   const dispatch = useAppDispatch();
 
-  const generateApiKey = () => {
-    setApiKey(uuidv4());
+  const generateApiKey = async () => {
+    try {
+      // TODO: prevent this route from being hit externally
+      const res = await fetch("/api/create-key");
+      const data = await res.json();
+
+      setApiKey(data.key);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

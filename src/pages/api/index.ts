@@ -88,8 +88,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  return res.status(500);
-
   try {
     await client.connect();
     const db = client.db(process.env.MONGODB_DBNAME as string);
