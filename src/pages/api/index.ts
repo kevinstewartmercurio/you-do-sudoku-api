@@ -119,40 +119,38 @@ export default async function handler(
       now.getUTCMonth() + 1
     ).padStart(2, "0")}`;
 
+    const baseUpdate = {
+      $addToSet: {
+        ipArray: req.headers["x-forwarded-for"] ?? null,
+      },
+      $currentDate: {
+        lastUsedAt: true,
+      },
+      $inc: {
+        requestCountTotal: 1,
+      },
+      $set: {
+        expireAt: null,
+        lastIp: req.headers["x-forwarded-for"] ?? null,
+      },
+    };
+
     let update;
 
     if (hashedKeyDoc.currentMonth === currentMonth) {
       update = {
-        $addToSet: {
-          ipArray: req.headers["x-forwarded-for"] ?? null,
-        },
-        $currentDate: {
-          lastUsedAt: true,
-        },
+        ...baseUpdate,
         $inc: {
-          requestCountTotal: 1,
+          ...baseUpdate.$inc,
           requestCountMonthly: 1,
-        },
-        $set: {
-          expireAt: null,
-          lastIp: req.headers["x-forwarded-for"] ?? null,
         },
       };
     } else {
       update = {
-        $addToSet: {
-          ipArray: req.headers["x-forwarded-for"] ?? null,
-        },
-        $currentDate: {
-          lastUsedAt: true,
-        },
-        $inc: {
-          requestCountTotal: 1,
-        },
+        ...baseUpdate,
         $set: {
+          ...baseUpdate.$set,
           currentMonth: currentMonth,
-          expireAt: null,
-          lastIp: req.headers["x-forwarded-for"] ?? null,
           requestCountMonthly: 1,
         },
       };
