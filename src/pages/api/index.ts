@@ -114,9 +114,15 @@ export default async function handler(
     }
 
     // update metadata for associated key
-    apiKeysColl.updateOne(
-      { hashedKey: hashedKey },
-      {
+    const now = new Date();
+    const currentMonth = `${now.getUTCFullYear()}-${String(
+      now.getUTCMonth() + 1
+    ).padStart(2, "0")}`;
+
+    let update;
+
+    if (hashedKeyDoc.currentMonth === currentMonth) {
+      update = {
         $addToSet: {
           ipArray: req.headers["x-forwarded-for"] ?? null,
         },
@@ -124,14 +130,35 @@ export default async function handler(
           lastUsedAt: true,
         },
         $inc: {
-          requestCount: 1,
+          requestCountTotal: 1,
+          requestCountMonthly: 1,
         },
         $set: {
           expireAt: null,
           lastIp: req.headers["x-forwarded-for"] ?? null,
         },
-      }
-    );
+      };
+    } else {
+      update = {
+        $addToSet: {
+          ipArray: req.headers["x-forwarded-for"] ?? null,
+        },
+        $currentDate: {
+          lastUsedAt: true,
+        },
+        $inc: {
+          requestCountTotal: 1,
+        },
+        $set: {
+          currentMonth: currentMonth,
+          expireAt: null,
+          lastIp: req.headers["x-forwarded-for"] ?? null,
+          requestCountMonthly: 1,
+        },
+      };
+    }
+
+    apiKeysColl.updateOne({ hashedKey: hashedKey }, update);
 
     return res.status(200).json(retObj);
   } catch (_) {
