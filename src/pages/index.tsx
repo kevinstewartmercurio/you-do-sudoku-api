@@ -8,8 +8,10 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Quickstart from "./components/Quickstart";
 
+import { puzzles } from "@/utils/puzzles";
+import { getIsometry, getRotation } from "@/utils/puzzles";
+
 export default function Home() {
-  const [loading, setLoading] = useState<boolean>(false);
   const [difficulty, setDifficulty] = useState<string>("");
   const [puzzle, setPuzzle] = useState<string>("0".repeat(81));
   const [solution, setSolution] = useState<string>("0".repeat(81));
@@ -19,22 +21,27 @@ export default function Home() {
   }, []);
 
   const generateBoard = async () => {
-    if (!loading) {
-      try {
-        setLoading(true);
+    const randn = Math.floor(Math.random() * puzzles.length);
 
-        const res = await fetch("/api/homepage");
-        const data = await res.json();
+    const p = puzzles[randn];
+    const [puzzleIsometry, solutionIsometry] = getIsometry(
+      p.split(",")[0],
+      p.split(",")[1]
+    );
+    const [rotatedPuzzle, rotatedSolution] = getRotation(
+      puzzleIsometry,
+      solutionIsometry
+    );
 
-        setDifficulty(data.difficulty);
-        setPuzzle(data.puzzle);
-        setSolution(data.solution);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
-    }
+    setDifficulty(
+      randn / puzzles.length < 0.33
+        ? "easy"
+        : randn / puzzles.length < 0.66
+        ? "medium"
+        : "hard"
+    );
+    setPuzzle(rotatedPuzzle);
+    setSolution(rotatedSolution);
   };
 
   return (
