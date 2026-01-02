@@ -13,7 +13,6 @@ export default function Quickstart() {
 
   const generateApiKey = async () => {
     try {
-      // TODO: prevent this route from being hit externally
       const res = await fetch("/api/create-key");
       const data = await res.json();
 
