@@ -46,8 +46,11 @@ export default async function handler(
     }
 
     console.log("here2");
+    console.log("req.headers['x-api-key']", req.headers["x-api-key"]);
     const hashedKey = await hash(req.headers["x-api-key"] as string);
+    console.log("hashedKey", hashedKey);
     const hashedKeyDoc = await apiKeysColl.findOne({ hashedKey: hashedKey });
+    console.log("hashedKeyDoc", hashedKeyDoc);
 
     if (!hashedKeyDoc) {
       return res.status(401).json({
