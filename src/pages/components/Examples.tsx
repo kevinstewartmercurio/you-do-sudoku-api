@@ -499,23 +499,25 @@ export default function Examples(props: {
             </div>
           </div>
           {/* code snippet */}
-          <CopyToClipboard
-            text={language === "python" ? pythonGETText : javascriptGETText}
-          >
-            <button
-              className="w-full flex justify-center"
-              onClick={() => dispatch(updateCopied(true))}
+          <div className="w-72 xs:w-5/6 mx-auto">
+            <CopyToClipboard
+              text={language === "python" ? pythonGETText : javascriptGETText}
             >
-              <div className="text-secondary bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap code-snippet">
-                {/* <PythonGETExample /> */}
-                {language === "python" ? (
-                  <PythonGETExample />
-                ) : (
-                  <JavaScriptGETExample />
-                )}
-              </div>
-            </button>
-          </CopyToClipboard>
+              <button
+                className="w-full flex justify-center"
+                onClick={() => dispatch(updateCopied(true))}
+              >
+                <div className="text-secondary bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-full max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap code-snippet">
+                  {/* <PythonGETExample /> */}
+                  {language === "python" ? (
+                    <PythonGETExample />
+                  ) : (
+                    <JavaScriptGETExample />
+                  )}
+                </div>
+              </button>
+            </CopyToClipboard>
+          </div>
         </div>
         {/* post request */}
         <div className="w-full my-4 flex flex-col items-center">
@@ -557,23 +559,25 @@ export default function Examples(props: {
             </div>
           </div>
           {/* code snippet */}
-          <CopyToClipboard
-            text={language === "python" ? pythonPOSTText : javascriptPOSTText}
-          >
-            <button
-              className="w-full flex justify-center"
-              onClick={() => dispatch(updateCopied(true))}
+          <div className="w-72 xs:w-5/6 mx-auto">
+            <CopyToClipboard
+              text={language === "python" ? pythonPOSTText : javascriptPOSTText}
             >
-              <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-72 xs:w-5/6 max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap code-snippet">
-                {/* <PythonGETExample /> */}
-                {language === "python" ? (
-                  <PythonPOSTExample />
-                ) : (
-                  <JavaScriptPOSTExample />
-                )}
-              </div>
-            </button>
-          </CopyToClipboard>
+              <button
+                className="w-full flex justify-center"
+                onClick={() => dispatch(updateCopied(true))}
+              >
+                <div className="bg-quickstart-route-bg border-board border-[1px] border-t-0 rounded-b-2xl w-full max-w-lg md:max-w-xl lg:max-w-5xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex flex-col items-start overflow-auto whitespace-nowrap code-snippet">
+                  {/* <PythonGETExample /> */}
+                  {language === "python" ? (
+                    <PythonPOSTExample />
+                  ) : (
+                    <JavaScriptPOSTExample />
+                  )}
+                </div>
+              </button>
+            </CopyToClipboard>
+          </div>
         </div>
         {/* output */}
         <div className="w-full my-4 flex flex-col items-center">

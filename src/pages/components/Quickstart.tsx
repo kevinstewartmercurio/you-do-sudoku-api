@@ -36,53 +36,57 @@ export default function Quickstart() {
             request to the API route.
           </div>
         </div>
-        <div className="w-full">
-          <CopyToClipboard text={apiKey}>
-            <button
-              className="w-full flex px-4 justify-center"
-              onClick={() => {
-                if (!keyGenerated) {
-                  generateApiKey();
-                } else {
-                  dispatch(updateCopied(true));
-                }
+        <div className="w-full px-4">
+          <div className="max-w-lg lg:max-w-xl mx-auto">
+            <CopyToClipboard text={apiKey}>
+              <button
+                className="w-full flex justify-center"
+                onClick={() => {
+                  if (!keyGenerated) {
+                    generateApiKey();
+                  } else {
+                    dispatch(updateCopied(true));
+                  }
 
-                setKeyGenerated(true);
-              }}
-            >
-              {keyGenerated && !loading && (
-                <div className="bg-quickstart-route-accent rounded-l-2xl w-1.5 h-11 lg:h-12"></div>
-              )}
-              <div
-                className={`
+                  setKeyGenerated(true);
+                }}
+              >
+                {keyGenerated && !loading && (
+                  <div className="bg-quickstart-route-accent rounded-l-2xl w-1.5 h-11 lg:h-12"></div>
+                )}
+                <div
+                  className={`
                 ${
                   !keyGenerated || loading
                     ? "text-secondary-btn-text bg-secondary-btn-bg border-secondary-btn-border border-[1px] rounded-lg px-3 py-1 font-inter text-sm sm:text-base lg:text-lg hover:bg-secondary-btn-bg-hover hover:border-secondary-btn-border-hover duration-300"
                     : "text-secondary bg-quickstart-route-bg rounded-r-2xl w-64 xs:w-5/6 max-w-lg sm:w-full lg:max-w-xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex items-center overflow-auto whitespace-nowrap"
                 }
             `}
-              >
-                {loading
-                  ? "Loading..."
-                  : keyGenerated
-                  ? apiKey
-                  : "Generate An API Key"}
-              </div>
-            </button>
-          </CopyToClipboard>
+                >
+                  {loading
+                    ? "Loading..."
+                    : keyGenerated
+                    ? apiKey
+                    : "Generate An API Key"}
+                </div>
+              </button>
+            </CopyToClipboard>
+          </div>
         </div>
-        <div className="mt-1.5 xs:mt-3 sm:mt-3.5 w-full">
-          <CopyToClipboard text="https://you-do-sudoku-api.vercel.app/api">
-            <button
-              className="w-full px-4 flex justify-center"
-              onClick={() => dispatch(updateCopied(true))}
-            >
-              <div className="bg-quickstart-route-accent rounded-l-2xl w-1.5 h-11 lg:h-12"></div>
-              <div className="text-secondary bg-quickstart-route-bg rounded-r-2xl w-64 xs:w-5/6 max-w-lg lg:max-w-xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex items-center overflow-auto whitespace-nowrap">
-                <code>https://youdosudoku.com/api</code>
-              </div>
-            </button>
-          </CopyToClipboard>
+        <div className="mt-1.5 xs:mt-3 sm:mt-3.5 w-full px-4">
+          <div className="w-full max-w-lg lg:max-w-xl mx-auto">
+            <CopyToClipboard text="https://you-do-sudoku-api.vercel.app/api">
+              <button
+                className="w-full flex justify-center"
+                onClick={() => dispatch(updateCopied(true))}
+              >
+                <div className="bg-quickstart-route-accent rounded-l-2xl w-1.5 h-11 lg:h-12"></div>
+                <div className="text-secondary bg-quickstart-route-bg rounded-r-2xl w-64 xs:w-5/6 sm:w-full max-w-lg lg:max-w-xl px-3.5 py-2.5 text-sm sm:text-base lg:text-lg flex items-center overflow-auto whitespace-nowrap">
+                  <code>https://youdosudoku.com/api</code>
+                </div>
+              </button>
+            </CopyToClipboard>
+          </div>
         </div>
       </div>
     </>
