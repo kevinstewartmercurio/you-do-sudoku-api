@@ -2,7 +2,6 @@ import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { updateCopied } from "@/redux/features/copied";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { v4 as uuidv4 } from "uuid";
 
 export default function Quickstart() {
   const [keyGenerated, setKeyGenerated] = useState(false);
