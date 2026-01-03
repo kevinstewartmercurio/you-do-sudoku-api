@@ -15,6 +15,7 @@ const client = new MongoClient(process.env.MONGODB_URI as string);
 
 type ApiKeyDoc = {
   hashedKey: string;
+  isActive: boolean;
   ipArray?: string[];
   lastUsedAt?: Date;
   requestCountTotal?: number;
@@ -157,78 +158,48 @@ export default async function handler(
     }
 
     // update metadata for associated key
-    let update: UpdateFilter<ApiKeyDoc> = {
-      $addToSet: {
-        ipArray: req.headers["x-forwarded-for"] ?? "",
-      },
-      $currentDate: {
-        lastUsedAt: true,
-      },
-      $inc: {
-        requestCountTotal: 1,
-      },
-      $set: {
-        expireAt: null,
-        lastIp:
-          typeof req.headers["x-forwarded-for"] === "string"
-            ? req.headers["x-forwarded-for"]
-            : "",
-      },
-    };
+    const rawIp = req.headers["x-forwarded-for"];
+    const ip = typeof rawIp === "string" ? rawIp.split(",")[0].trim() : null;
+    const isSameMonth = hashedKeyDoc.currentMonth === currentMonth;
+    const isSameMinute = hashedKeyDoc.currentMinute === currentMinute;
+    const willExceedMonthly =
+      isSameMonth && hashedKeyDoc.requestCountMonth + 1 >= 25000;
 
-    // let update;
+    const incFields: {
+      requestCountTotal?: number;
+      requestCountMonth?: number;
+      requestCountMinute?: number;
+    } = { requestCountTotal: 1 };
+    const setFields: Partial<ApiKeyDoc> = {};
 
-    if (hashedKeyDoc.currentMonth === currentMonth) {
-      if (hashedKeyDoc.requestCountMonth + 1 < 25000) {
-        update = {
-          ...update,
-          $inc: {
-            ...update.$inc,
-            requestCountMonth: 1,
-          },
-        };
-      } else {
-        update = {
-          ...update,
-          $inc: {
-            ...update.$inc,
-            requestCountMonth: 1,
-          },
-          $set: {
-            ...update.$set,
-            isActive: false,
-          },
-        };
+    if (ip) {
+      setFields.lastIp = ip;
+    }
+
+    if (isSameMonth) {
+      incFields.requestCountMonth = 1;
+
+      if (willExceedMonthly) {
+        setFields.isActive = false;
       }
     } else {
-      update = {
-        ...update,
-        $set: {
-          ...update.$set,
-          currentMonth: currentMonth,
-          requestCountMonth: 1,
-        },
-      };
+      setFields.currentMonth = currentMonth;
+      setFields.requestCountMonth = 1;
     }
 
-    if (hashedKeyDoc.currentMinute === currentMinute) {
-      update = {
-        ...update,
-        $inc: {
-          ...update.$inc,
-          requestCountMinute: 1,
-        },
-      };
+    if (isSameMinute) {
+      incFields.requestCountMinute = 1;
     } else {
-      update = {
-        ...update,
-        $set: {
-          ...update.$set,
-          currentMinute: currentMinute,
-          requestCountMinute: 1,
-        },
-      };
+      setFields.currentMinute = currentMinute;
+      setFields.requestCountMinute = 1;
     }
+
+    const update: UpdateFilter<ApiKeyDoc> = {
+      $currentDate: { lastUsedAt: true },
+      $inc: incFields,
+      $set: setFields,
+      ...(ip ? { $addToSet: { ipArray: ip } } : {}),
+    };
 
     apiKeysColl.updateOne({ hashedKey: hashedKey }, update);
 
