@@ -50,6 +50,11 @@ export default async function handler(
       return res.status(401).json({
         error: "Invalid API key.",
       });
+    } else if (!hashedKeyDoc.isActive) {
+      return res.status(403).json({
+        error:
+          "The included API key has been deactivated due to rate limiting issues.",
+      });
     }
 
     // get collection from database
@@ -138,13 +143,27 @@ export default async function handler(
     let update;
 
     if (hashedKeyDoc.currentMonth === currentMonth) {
-      update = {
-        ...baseUpdate,
-        $inc: {
-          ...baseUpdate.$inc,
-          requestCountMonthly: 1,
-        },
-      };
+      if (hashedKeyDoc.requestCountMonthly + 1 < 25000) {
+        update = {
+          ...baseUpdate,
+          $inc: {
+            ...baseUpdate.$inc,
+            requestCountMonthly: 1,
+          },
+        };
+      } else {
+        update = {
+          ...baseUpdate,
+          $inc: {
+            ...baseUpdate.$inc,
+            requestCountMonthly: 1,
+          },
+          $set: {
+            ...baseUpdate.$set,
+            isActive: false,
+          },
+        };
+      }
     } else {
       update = {
         ...baseUpdate,
