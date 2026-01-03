@@ -35,9 +35,20 @@ export default async function handler(
     const expirationTime = new Date();
     expirationTime.setMinutes(expirationTime.getMinutes() + 60);
     const now = new Date();
-    const currentMonth = `${now.getUTCFullYear()}-${String(
-      now.getUTCMonth() + 1
-    ).padStart(2, "0")}`;
+    const currentMonth = `${String(now.getUTCMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${now.getUTCFullYear()}`;
+    const currentMinute = `${String(now.getUTCMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(now.getDate()).padStart(
+      2,
+      "0"
+    )}-${now.getUTCFullYear()} ${String(now.getHours()).padStart(
+      2,
+      "0"
+    )}:${String(now.getMinutes()).padStart(2, "0")}`;
 
     await apiKeysColl.insertOne({
       hashedKey: hashedKey,
@@ -46,8 +57,10 @@ export default async function handler(
       expireAt: expirationTime,
       lastUsedAt: null,
       currentMonth: currentMonth,
+      currentMinute: currentMinute,
       requestCountTotal: 0,
-      requestCountMonthly: 0,
+      requestCountMonth: 0,
+      requestCountMinute: 0,
       createdFromIp: req.headers["x-forwarded-for"],
       lastIp: req.headers["x-forwarded-for"],
       ipArray: [req.headers["x-forwarded-for"]],

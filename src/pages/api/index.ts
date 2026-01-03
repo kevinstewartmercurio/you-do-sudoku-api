@@ -6,12 +6,25 @@ body parameters:
 */
 
 import "dotenv/config";
-import { Collection, MongoClient, WithId } from "mongodb";
+import { Collection, MongoClient, UpdateFilter, WithId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { hash } from "@/utils/key";
 import { boardStringToGrid, getIsometry, getRotation } from "@/utils/puzzles";
 
 const client = new MongoClient(process.env.MONGODB_URI as string);
+
+type ApiKeyDoc = {
+  hashedKey: string;
+  ipArray?: string[];
+  lastUsedAt?: Date;
+  requestCountTotal?: number;
+  requestCountMonth?: number;
+  requestCountMinute?: number;
+  currentMonth?: string;
+  currentMinute?: string;
+  expireAt?: Date | null;
+  lastIp?: string | null;
+};
 
 type BoardObj = {
   _id: string;
@@ -36,6 +49,23 @@ export default async function handler(
       process.env.MONGODB_COLL_API_KEYS as string
     );
 
+    // time strings used for metadata and validation
+    const now = new Date();
+    const currentMonth = `${String(now.getUTCMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${now.getUTCFullYear()}`;
+    const currentMinute = `${String(now.getUTCMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(now.getDate()).padStart(
+      2,
+      "0"
+    )}-${now.getUTCFullYear()} ${String(now.getHours()).padStart(
+      2,
+      "0"
+    )}:${String(now.getMinutes()).padStart(2, "0")}`;
+
     // check for valid api key
     if (!req.headers["x-api-key"]) {
       return res.status(400).json({
@@ -54,6 +84,14 @@ export default async function handler(
       return res.status(403).json({
         error:
           "The included API key has been deactivated due to rate limiting issues.",
+      });
+    } else if (
+      hashedKeyDoc.currentMinute === currentMinute &&
+      hashedKeyDoc.requestCountMinute >= 60
+    ) {
+      return res.status(403).json({
+        error:
+          "The included API key has reached its limit of 60 requests per minute. Please try again momentarily.",
       });
     }
 
@@ -119,14 +157,9 @@ export default async function handler(
     }
 
     // update metadata for associated key
-    const now = new Date();
-    const currentMonth = `${now.getUTCFullYear()}-${String(
-      now.getUTCMonth() + 1
-    ).padStart(2, "0")}`;
-
-    const baseUpdate = {
+    let update: UpdateFilter<ApiKeyDoc> = {
       $addToSet: {
-        ipArray: req.headers["x-forwarded-for"] ?? null,
+        ipArray: req.headers["x-forwarded-for"] ?? "",
       },
       $currentDate: {
         lastUsedAt: true,
@@ -136,41 +169,63 @@ export default async function handler(
       },
       $set: {
         expireAt: null,
-        lastIp: req.headers["x-forwarded-for"] ?? null,
+        lastIp:
+          typeof req.headers["x-forwarded-for"] === "string"
+            ? req.headers["x-forwarded-for"]
+            : "",
       },
     };
 
-    let update;
+    // let update;
 
     if (hashedKeyDoc.currentMonth === currentMonth) {
-      if (hashedKeyDoc.requestCountMonthly + 1 < 25000) {
+      if (hashedKeyDoc.requestCountMonth + 1 < 25000) {
         update = {
-          ...baseUpdate,
+          ...update,
           $inc: {
-            ...baseUpdate.$inc,
-            requestCountMonthly: 1,
+            ...update.$inc,
+            requestCountMonth: 1,
           },
         };
       } else {
         update = {
-          ...baseUpdate,
+          ...update,
           $inc: {
-            ...baseUpdate.$inc,
-            requestCountMonthly: 1,
+            ...update.$inc,
+            requestCountMonth: 1,
           },
           $set: {
-            ...baseUpdate.$set,
+            ...update.$set,
             isActive: false,
           },
         };
       }
     } else {
       update = {
-        ...baseUpdate,
+        ...update,
         $set: {
-          ...baseUpdate.$set,
+          ...update.$set,
           currentMonth: currentMonth,
-          requestCountMonthly: 1,
+          requestCountMonth: 1,
+        },
+      };
+    }
+
+    if (hashedKeyDoc.currentMinute === currentMinute) {
+      update = {
+        ...update,
+        $inc: {
+          ...update.$inc,
+          requestCountMinute: 1,
+        },
+      };
+    } else {
+      update = {
+        ...update,
+        $set: {
+          ...update.$set,
+          currentMinute: currentMinute,
+          requestCountMinute: 1,
         },
       };
     }
