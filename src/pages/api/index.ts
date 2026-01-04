@@ -6,7 +6,13 @@ body parameters:
 */
 
 import "dotenv/config";
-import { Collection, MongoClient, UpdateFilter, WithId } from "mongodb";
+import {
+  Collection,
+  MongoClient,
+  UpdateFilter,
+  WithId,
+  Document,
+} from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { hash } from "@/utils/key";
 import { boardStringToGrid, getIsometry, getRotation } from "@/utils/puzzles";
@@ -183,7 +189,7 @@ export default async function handler(
       setFields.requestCountMinute = 1;
     }
 
-    const update: UpdateFilter<ApiKeyDoc> = {
+    const update: UpdateFilter<Document> = {
       $currentDate: { lastUsedAt: true },
       $inc: incFields,
       $set: setFields,
