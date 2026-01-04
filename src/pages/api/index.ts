@@ -154,7 +154,7 @@ export default async function handler(
     const isSameMonth = hashedKeyDoc.currentMonth === currentMonth;
     const isSameMinute = hashedKeyDoc.currentMinute === currentMinute;
     const willExceedMonthly =
-      isSameMonth && hashedKeyDoc.requestCountMonth + 1 >= 25000;
+      isSameMonth && hashedKeyDoc.requestCountMonth + 1 >= 5000;
 
     const incFields: {
       requestCountTotal?: number;
