@@ -161,7 +161,9 @@ export default async function handler(
       requestCountMonth?: number;
       requestCountMinute?: number;
     } = { requestCountTotal: 1 };
-    const setFields: Partial<ApiKeyDoc> = {};
+    const setFields: Partial<ApiKeyDoc> = {
+      expireAt: null,
+    };
 
     if (ip) {
       setFields.lastIp = ip;
