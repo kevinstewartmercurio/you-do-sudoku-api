@@ -19,6 +19,7 @@ export default async function handler(
       process.env.MONGODB_COLL_API_KEYS as string
     );
 
+    // time strings used for rate limiting and metadata
     const nowStr = new Date().toISOString();
     const currentMonth = `${nowStr.slice(5, 7)}-${nowStr.slice(0, 4)}`;
     const currentDay = `${nowStr.slice(5, 10)}-${nowStr.slice(0, 4)}`;
@@ -64,6 +65,10 @@ export default async function handler(
             "Too many API keys created from this IP address recently. Please try again later.",
         });
       }
+    } else {
+      return res.status(400).json({
+        error: "Unable to determine client IP.",
+      });
     }
 
     // generate key
