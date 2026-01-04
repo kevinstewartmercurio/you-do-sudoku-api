@@ -6,10 +6,26 @@ body parameters:
 */
 
 import "dotenv/config";
-import { Collection, MongoClient, WithId } from "mongodb";
+import { Collection, MongoClient, UpdateFilter, WithId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { hash } from "@/utils/key";
+import { boardStringToGrid, getIsometry, getRotation } from "@/utils/puzzles";
 
 const client = new MongoClient(process.env.MONGODB_URI as string);
+
+type ApiKeyDoc = {
+  hashedKey: string;
+  isActive: boolean;
+  ipArray?: string[];
+  lastUsedAt?: Date;
+  requestCountTotal?: number;
+  requestCountMonth?: number;
+  requestCountMinute?: number;
+  currentMonth?: string;
+  currentMinute?: string;
+  expireAt?: Date | null;
+  lastIp?: string | null;
+};
 
 type BoardObj = {
   _id: string;
@@ -23,67 +39,6 @@ const difficultyToDBCollName: { [key: string]: string } = {
   hard: process.env.MONGODB_COLL_HARD as string,
 };
 
-const boardStringToGrid = (s: string): string[][] => {
-  // convert string representation of a board to a list of lists representation
-  if (s.length !== 81) {
-    throw new Error("Invalid input. Input length should be 81.");
-  }
-
-  const grid = [];
-  for (let i = 0; i < s.length; i += 9) {
-    const row = s.slice(i, i + 9).split("");
-    grid.push(row);
-  }
-
-  return grid;
-};
-
-const getIsometry = (puzzle: string, solution: string): string[] => {
-  // take the given puzzle and solution and return a random isometry
-  // i.e. map all 2s to 9s, etc.
-  if (puzzle.length !== 81 || solution.length !== 81) {
-    throw new Error("Invalid input. Input length should be 81.");
-  }
-
-  let retPuzzle = "";
-  let retSolution = "";
-  const map = ["1", "2", "3", "4", "5", "6", "7", "8", "9"].sort(
-    () => Math.random() - 0.5
-  );
-  for (let i = 0; i < puzzle.length; i++) {
-    retPuzzle += puzzle[i] === "0" ? "0" : map[parseInt(puzzle[i]) - 1];
-    retSolution += map[parseInt(solution[i]) - 1];
-  }
-
-  return [retPuzzle, retSolution];
-};
-
-const getRotation = (puzzle: string, solution: string): string[] => {
-  // take the given puzzle and solution, rotate 0-3 times, and return
-  if (puzzle.length !== 81 || solution.length !== 81) {
-    throw new Error("Invalid input. Input length should be 81.");
-  }
-
-  let retPuzzle = "";
-  let retSolution = "";
-  let tempPuzzle = "";
-  let tempSolution = "";
-  const randn = Math.floor(Math.random() * 4);
-  for (let i = 0; i < randn; i++) {
-    for (let i = 0; i < puzzle.length; i++) {
-      tempPuzzle += puzzle[9 * (9 - (i % 9) - 1) + Math.floor(i / 9)];
-      tempSolution += solution[9 * (9 - (i % 9) - 1) + Math.floor(i / 9)];
-    }
-
-    retPuzzle = tempPuzzle;
-    retSolution = tempSolution;
-    tempPuzzle = "";
-    tempSolution = "";
-  }
-
-  return randn === 0 ? [puzzle, solution] : [retPuzzle, retSolution];
-};
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -91,6 +46,46 @@ export default async function handler(
   try {
     await client.connect();
     const db = client.db(process.env.MONGODB_DBNAME as string);
+    const apiKeysColl = db.collection(
+      process.env.MONGODB_COLL_API_KEYS as string
+    );
+
+    // time strings used for metadata and validation
+    const nowStr = new Date().toISOString();
+    const currentMonth = `${nowStr.slice(5, 7)}-${nowStr.slice(0, 4)}`;
+    const currentMinute = `${nowStr.slice(5, 10)}-${nowStr.slice(
+      0,
+      4
+    )} ${nowStr.slice(11, 16)}`;
+
+    // check for valid api key
+    if (!req.headers["x-api-key"]) {
+      return res.status(400).json({
+        error: "Missing API key.",
+      });
+    }
+
+    const hashedKey = await hash(req.headers["x-api-key"] as string);
+    const hashedKeyDoc = await apiKeysColl.findOne({ hashedKey: hashedKey });
+
+    if (!hashedKeyDoc) {
+      return res.status(401).json({
+        error: "Invalid API key.",
+      });
+    } else if (!hashedKeyDoc.isActive) {
+      return res.status(403).json({
+        error:
+          "The included API key has been deactivated due to rate limiting issues.",
+      });
+    } else if (
+      hashedKeyDoc.currentMinute === currentMinute &&
+      hashedKeyDoc.requestCountMinute >= 60
+    ) {
+      return res.status(403).json({
+        error:
+          "The included API key has reached its limit of 60 requests per minute. Please try again momentarily.",
+      });
+    }
 
     // get collection from database
     let coll: Collection<Document>;
@@ -152,6 +147,52 @@ export default async function handler(
         retObj.solution = boardStringToGrid(retObj.solution);
       }
     }
+
+    // update metadata for associated key
+    const rawIp = req.headers["x-forwarded-for"];
+    const ip = typeof rawIp === "string" ? rawIp.split(",")[0].trim() : null;
+    const isSameMonth = hashedKeyDoc.currentMonth === currentMonth;
+    const isSameMinute = hashedKeyDoc.currentMinute === currentMinute;
+    const willExceedMonthly =
+      isSameMonth && hashedKeyDoc.requestCountMonth + 1 >= 25000;
+
+    const incFields: {
+      requestCountTotal?: number;
+      requestCountMonth?: number;
+      requestCountMinute?: number;
+    } = { requestCountTotal: 1 };
+    const setFields: Partial<ApiKeyDoc> = {};
+
+    if (ip) {
+      setFields.lastIp = ip;
+    }
+
+    if (isSameMonth) {
+      incFields.requestCountMonth = 1;
+
+      if (willExceedMonthly) {
+        setFields.isActive = false;
+      }
+    } else {
+      setFields.currentMonth = currentMonth;
+      setFields.requestCountMonth = 1;
+    }
+
+    if (isSameMinute) {
+      incFields.requestCountMinute = 1;
+    } else {
+      setFields.currentMinute = currentMinute;
+      setFields.requestCountMinute = 1;
+    }
+
+    const update: UpdateFilter<ApiKeyDoc> = {
+      $currentDate: { lastUsedAt: true },
+      $inc: incFields,
+      $set: setFields,
+      ...(ip ? { $addToSet: { ipArray: ip } } : {}),
+    };
+
+    apiKeysColl.updateOne({ hashedKey: hashedKey }, update);
 
     return res.status(200).json(retObj);
   } catch (_) {
