@@ -51,21 +51,12 @@ export default async function handler(
     );
 
     // time strings used for metadata and validation
-    const now = new Date();
-    const currentMonth = `${String(now.getUTCMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${now.getUTCFullYear()}`;
-    const currentMinute = `${String(now.getUTCMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(now.getDate()).padStart(
-      2,
-      "0"
-    )}-${now.getUTCFullYear()} ${String(now.getHours()).padStart(
-      2,
-      "0"
-    )}:${String(now.getMinutes()).padStart(2, "0")}`;
+    const nowStr = new Date().toISOString();
+    const currentMonth = `${nowStr.slice(5, 7)}-${nowStr.slice(0, 4)}`;
+    const currentMinute = `${nowStr.slice(5, 10)}-${nowStr.slice(
+      0,
+      4
+    )} ${nowStr.slice(11, 16)}`;
 
     // check for valid api key
     if (!req.headers["x-api-key"]) {
