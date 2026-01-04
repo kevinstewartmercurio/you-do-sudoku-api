@@ -15,7 +15,6 @@ const client = new MongoClient(process.env.MONGODB_URI as string);
 
 type ApiKeyDoc = {
   hashedKey: string;
-  isActive: boolean;
   ipArray?: string[];
   lastUsedAt?: Date;
   requestCountTotal?: number;
@@ -72,10 +71,13 @@ export default async function handler(
       return res.status(401).json({
         error: "Invalid API key.",
       });
-    } else if (!hashedKeyDoc.isActive) {
+    } else if (
+      hashedKeyDoc.currentMonth === currentMonth &&
+      hashedKeyDoc.requestCountMonth >= 5000
+    ) {
       return res.status(403).json({
         error:
-          "The included API key has been deactivated due to rate limiting issues.",
+          "The included API key has reached its monthly limit. Please try again later.",
       });
     } else if (
       hashedKeyDoc.currentMinute === currentMinute &&
@@ -153,8 +155,6 @@ export default async function handler(
     const ip = typeof rawIp === "string" ? rawIp.split(",")[0].trim() : null;
     const isSameMonth = hashedKeyDoc.currentMonth === currentMonth;
     const isSameMinute = hashedKeyDoc.currentMinute === currentMinute;
-    const willExceedMonthly =
-      isSameMonth && hashedKeyDoc.requestCountMonth + 1 >= 5000;
 
     const incFields: {
       requestCountTotal?: number;
@@ -171,10 +171,6 @@ export default async function handler(
 
     if (isSameMonth) {
       incFields.requestCountMonth = 1;
-
-      if (willExceedMonthly) {
-        setFields.isActive = false;
-      }
     } else {
       setFields.currentMonth = currentMonth;
       setFields.requestCountMonth = 1;

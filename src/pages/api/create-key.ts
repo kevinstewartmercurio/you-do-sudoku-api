@@ -93,7 +93,6 @@ export default async function handler(
 
     await apiKeysColl.insertOne({
       hashedKey: hashedKey,
-      isActive: true,
       createdAt: new Date(),
       expireAt: keyExpirationTime,
       lastUsedAt: null,
