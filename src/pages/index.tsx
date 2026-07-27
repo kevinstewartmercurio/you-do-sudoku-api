@@ -16,10 +16,6 @@ export default function Home() {
   const [puzzle, setPuzzle] = useState<string>("0".repeat(81));
   const [solution, setSolution] = useState<string>("0".repeat(81));
 
-  useEffect(() => {
-    generateBoard();
-  }, []);
-
   const generateBoard = async () => {
     const randn = Math.floor(Math.random() * puzzles.length);
 
@@ -43,6 +39,10 @@ export default function Home() {
     setPuzzle(rotatedPuzzle);
     setSolution(rotatedSolution);
   };
+
+  useEffect(() => {
+    generateBoard();
+  }, []);
 
   return (
     <>
